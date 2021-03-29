@@ -1,0 +1,49 @@
+﻿@model CheckListApp.Models.CheckListTask
+
+@{ TimeSpan remainingTime = Model.DateDue - DateTime.Now;
+   string RemainingTime = "";
+
+    if (remainingTime.Days < 10)
+    {
+        RemainingTime += "0" + remainingTime.Days.ToString();
+    }
+    else
+    {
+        RemainingTime += remainingTime.Days.ToString();
+    }
+
+    RemainingTime += " Days ";
+
+    if (remainingTime.Hours < 10)
+    {
+        RemainingTime += "0" + remainingTime.Hours.ToString();
+    }
+    else
+    {
+        RemainingTime += remainingTime.Hours.ToString();
+    }
+
+    RemainingTime += ":";
+
+    if (remainingTime.Minutes < 10)
+    {
+        RemainingTime += "0" + remainingTime.Minutes.ToString();
+    }
+    else
+    {
+        RemainingTime += remainingTime.Minutes.ToString();
+    }
+
+    RemainingTime += ":";
+
+    if (remainingTime.Seconds < 10)
+        RemainingTime += ("0" + remainingTime.Seconds.ToString());
+    else
+        RemainingTime += remainingTime.Seconds.ToString();
+
+    if (remainingTime.Seconds < 0)
+        RemainingTime = "Task Expired";
+
+  
+}
+@RemainingTime

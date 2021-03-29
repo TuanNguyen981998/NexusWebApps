@@ -1,0 +1,108 @@
+﻿@model CheckListApp.ViewModels.CheckListTasksViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<form asp-controller="CheckListTasks" asp-action="Index" method="get">
+    <p>
+
+        <select asp-for="SelectedPriorityFilter" asp-items="@Html.GetEnumSelectList<CheckListApp.Models.CheckListTask.TASKPRIORITY>()">
+            <option value="All">All</option>
+        </select>
+        <select asp-for="SelectedSortOption" asp-items="@Html.GetEnumSelectList<CheckListApp.ViewModels.CheckListTasksViewModel.SORTOPTIONS>()">
+            <option value="-1">Default</option>
+        </select>
+
+        <input type="submit" value="Filter & Sort" />
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckListTasks[0].TaskDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckListTasks[0].TaskPriority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckListTasks[0].DateDue)
+            </th>
+            <th>
+                Task Remaining Time (Format: D HH:MM:SS)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ int count = 0; List<int> IDs = new List<int>();}
+        @foreach (var item in Model.CheckListTasks)
+        {
+            count++;
+            IDs.Add(item.ID);
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaskDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaskPriority)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateDue)
+                </td>
+                <td id="timer_@item.ID">
+                    <partial name="TimerPartial" model="item" />
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    var ajaxCalls = new Array();
+    var IDs = new Array();
+    function ajaxRequests() {
+
+
+        @foreach (var checkListTask in Model.CheckListTasks)
+         {
+
+            @:IDs.push("@checkListTask.ID");
+         }
+        for (i = 0; i < @count; i++) {
+            ajaxCalls.push(ajaxResp(IDs[i]));
+        }
+    }
+    function ajaxResp(ID) {
+        return $.ajax({
+            url: '@Url.Action("UpdateTimer","CheckListTasks")',
+            type: 'GET',
+            async: true,
+            cache: false,
+            data: { id: ID },
+            dataType: 'html'
+        });
+    }
+    function RequestTimers() {
+        ajaxRequests()
+        $.when.apply($, ajaxCalls).done(function () {
+            for (i = 0; i < arguments.length; i++) {
+                var IDString = "#timer_" + IDs[i].toString();
+                $(IDString).html(arguments[i][0]);
+            }
+        });
+    }
+    var timer = setInterval(RequestTimers, 1000);
+</script>

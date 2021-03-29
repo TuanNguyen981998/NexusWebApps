@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20210320224912_CreatedIdentitySchema.cs" />
+    <Compile Remove="Migrations\20210320224912_CreatedIdentitySchema.Designer.cs" />
+    <Compile Remove="Migrations\20210321001538_CreatedCheckListTaskSchema.cs" />
+    <Compile Remove="Migrations\20210321001538_CreatedCheckListTaskSchema.Designer.cs" />
+    <Compile Remove="Migrations\20210321020945_ModifiedCheckListTaskSchema.cs" />
+    <Compile Remove="Migrations\20210321020945_ModifiedCheckListTaskSchema.Designer.cs" />
+    <Compile Remove="Migrations\20210323052242_UpdateCheckListTaskSchema.cs" />
+    <Compile Remove="Migrations\20210323052242_UpdateCheckListTaskSchema.Designer.cs" />
+    <Compile Remove="Migrations\20210323055324_UpdatedCheckListTaskSchema.cs" />
+    <Compile Remove="Migrations\20210323055324_UpdatedCheckListTaskSchema.Designer.cs" />
+    <Compile Remove="Migrations\20210324073141_UpdatedCheckListTaskSchema.cs" />
+    <Compile Remove="Migrations\20210324073141_UpdatedCheckListTaskSchema.Designer.cs" />
+    <Compile Remove="Migrations\20210326081423_CreatedSongPlaylistSchema.cs" />
+    <Compile Remove="Migrations\20210326081423_CreatedSongPlaylistSchema.Designer.cs" />
+    <Compile Remove="Migrations\20210326081702_CreatedSongSchema.cs" />
+    <Compile Remove="Migrations\20210326081702_CreatedSongSchema.Designer.cs" />
+    <Compile Remove="Migrations\20210326081859_CreatedSongSchema.cs" />
+    <Compile Remove="Migrations\20210326081859_CreatedSongSchema.Designer.cs" />
+    <Compile Remove="Migrations\20210326090459_CreatedPlaylistSchema.cs" />
+    <Compile Remove="Migrations\20210326090459_CreatedPlaylistSchema.Designer.cs" />
+    <Compile Remove="Migrations\20210326102215_EditRelational.cs" />
+    <Compile Remove="Migrations\20210326102215_EditRelational.Designer.cs" />
+    <Compile Remove="Migrations\20210326102327_EditRelational.cs" />
+    <Compile Remove="Migrations\20210326102327_EditRelational.Designer.cs" />
+    <Compile Remove="Migrations\20210326104102_EditRelational.cs" />
+    <Compile Remove="Migrations\20210326104102_EditRelational.Designer.cs" />
+    <Compile Remove="Migrations\20210326104334_EditRelational.cs" />
+    <Compile Remove="Migrations\20210326104334_EditRelational.Designer.cs" />
+    <Compile Remove="Migrations\20210326110755_CreatedCheckListTaskAndSongSchemas.cs" />
+    <Compile Remove="Migrations\20210326110755_CreatedCheckListTaskAndSongSchemas.Designer.cs" />
+    <Compile Remove="Migrations\20210326122433_CreatedCheckListSchema.cs" />
+    <Compile Remove="Migrations\20210326122433_CreatedCheckListSchema.Designer.cs" />
+    <Compile Remove="Migrations\20210326124052_lol.cs" />
+    <Compile Remove="Migrations\20210326124052_lol.Designer.cs" />
+    <Compile Remove="Migrations\20210326124522_CreatedCheckAppUsersSchema.cs" />
+    <Compile Remove="Migrations\20210326124522_CreatedCheckAppUsersSchema.Designer.cs" />
+    <Compile Remove="Migrations\20210326125359_CreatedCheckAppUsersSchema.cs" />
+    <Compile Remove="Migrations\20210326125359_CreatedCheckAppUsersSchema.Designer.cs" />
+    <Compile Remove="Migrations\20210326125623_EditTableName.cs" />
+    <Compile Remove="Migrations\20210326125623_EditTableName.Designer.cs" />
+    <Compile Remove="Migrations\20210327033313_AddCascade.cs" />
+    <Compile Remove="Migrations\20210327033313_AddCascade.Designer.cs" />
+    <Compile Remove="Migrations\20210329051858_CreatedPlaylist_PlaylistsSongs_UsersPlaylistsSchema.cs" />
+    <Compile Remove="Migrations\20210329051858_CreatedPlaylist_PlaylistsSongs_UsersPlaylistsSchema.Designer.cs" />
+    <Compile Remove="Migrations\20210329052650_Created_Playlist_PlaylistsSongs_Schema.cs" />
+    <Compile Remove="Migrations\20210329052650_Created_Playlist_PlaylistsSongs_Schema.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+  </ItemGroup>
+
+</Project>
