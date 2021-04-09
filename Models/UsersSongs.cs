@@ -20,5 +20,7 @@ namespace CheckListApp.Models
         public Song Song { get; set; }
 
         public DateTime UserSongAddedDate { get; set; }
+
+        public int HitCount { get; set; }
     }
 }

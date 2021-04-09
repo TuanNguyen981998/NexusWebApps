@@ -20,6 +20,7 @@ namespace CheckListApp
         public static async Task Main(string[] args)
         {
             var Host = CreateHostBuilder(args).Build();
+            //Seed db
             using (var scope = Host.Services.CreateScope())
             {
                 bool changeFlag = false;

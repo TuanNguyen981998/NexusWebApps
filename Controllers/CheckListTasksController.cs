@@ -125,6 +125,7 @@ namespace CheckListApp.Controllers
                 try
                 {
                     checkListTask.DateModified = DateTime.Now;
+                    checkListTask.UserID = _userManager.GetUserId(User);
                     _context.Update(checkListTask);
                     await _context.SaveChangesAsync();
                 }

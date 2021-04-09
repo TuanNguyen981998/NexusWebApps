@@ -184,7 +184,9 @@ namespace CheckListApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Duration")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageURL")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ReleaseDate")
@@ -205,6 +207,9 @@ namespace CheckListApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("HitCount")
+                        .HasColumnType("int");
 
                     b.Property<int>("SongID")
                         .HasColumnType("int");

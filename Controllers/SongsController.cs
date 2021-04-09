@@ -26,8 +26,8 @@ namespace CheckListApp.Controllers
         // GET: Songs
         public async Task<IActionResult> Index(SongsManagementViewModel songsManagementViewModel)
         {
-            
-            var songsCollection = await _context.Songs.ToListAsync();
+
+            List<Song> songsCollection = await _context.Songs.ToListAsync();
             FilterHelper(ref songsCollection, songsManagementViewModel.InputFilterName);
             SortHelper(ref songsCollection, songsManagementViewModel.SelectedSortOption);
             songsManagementViewModel.SongsCollection = songsCollection;
@@ -57,6 +57,7 @@ namespace CheckListApp.Controllers
                         songsCollection = songsCollection.OrderBy(song => song.Title).ToList();
                         break;
                 }
+
 
             }
         }

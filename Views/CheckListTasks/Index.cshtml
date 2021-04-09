@@ -41,7 +41,8 @@
         </tr>
     </thead>
     <tbody>
-        @{ int count = 0; List<int> IDs = new List<int>();}
+        @{ int count = 0;
+            List<int> IDs = new List<int>();}
         @foreach (var item in Model.CheckListTasks)
         {
             count++;
@@ -71,9 +72,10 @@
 </table>
 
 <script type="text/javascript">
-    var ajaxCalls = new Array();
-    var IDs = new Array();
-    function ajaxRequests() {
+    //var ajaxCalls = new Array();
+    var IDs = [];
+    var timers = [];
+    @*function ajaxRequests() {
 
 
         @foreach (var checkListTask in Model.CheckListTasks)
@@ -84,8 +86,9 @@
         for (i = 0; i < @count; i++) {
             ajaxCalls.push(ajaxResp(IDs[i]));
         }
-    }
-    function ajaxResp(ID) {
+    }*@
+
+    @*function ajaxResp(ID) {
         return $.ajax({
             url: '@Url.Action("UpdateTimer","CheckListTasks")',
             type: 'GET',
@@ -103,6 +106,110 @@
                 $(IDString).html(arguments[i][0]);
             }
         });
+    }*@
+
+    function init() {
+        @foreach(var checkListTask in Model.CheckListTasks)
+         {
+            TimeSpan remainingTime = checkListTask.DateDue - DateTime.Now;
+            @:IDs.push(@checkListTask.ID);
+            @:var days = @remainingTime.Days;
+            @:var hours = @remainingTime.Hours;
+            @:var minutes = @remainingTime.Minutes;
+            @:var seconds = @remainingTime.Seconds;
+            @:var curTimer = { remainingDays: days, remainingHours: hours, remainingMinutes: minutes, remainingSeconds: seconds };
+            @:timers.push(curTimer); 
+        }
     }
-    var timer = setInterval(RequestTimers, 1000);
+
+    async function updateTimers(timerObj) {
+        timerResult = "";
+        if (timerObj.remainingSeconds > 0) {
+            timerObj.remainingSeconds--;
+        } else {
+            timerObj.remainingSeconds = 59;
+            timerObj.remainingMinutes--;
+        }
+
+        if (timerObj.remainingMinutes < 0) {
+            timerObj.remainingHours--;
+            timerObj.remainingMinutes = 59; 
+        }
+
+        if (timerObj.remainingHours < 0) {
+            timerObj.remainingDays--;
+            timerObj.remainingHours = 23;
+        }
+
+        if (timerObj.remainingDays < 0) {
+            timerResult = "Task Expired";
+        } else {
+            timerResult = toTimeString(timerObj);
+        }
+        return timerResult;
+    }
+
+    function toTimeString(timer) {
+        RemainingTime = "";
+        if (timer.remainingDays < 10) {
+            RemainingTime += "0" + timer.remainingDays.toString();
+        }
+        else {
+            RemainingTime += timer.remainingDays.toString();
+        }
+
+        RemainingTime += " Days ";
+
+        if (timer.remainingHours< 10) {
+            RemainingTime += "0" + timer.remainingHours.toString();
+        }
+        else {
+            RemainingTime += timer.remainingHours.toString();
+        }
+
+        RemainingTime += ":";
+
+        if (timer.remainingMinutes < 10) {
+            RemainingTime += "0" + timer.remainingMinutes.toString();
+        }
+        else {
+            RemainingTime += timer.remainingMinutes.toString();
+        }
+
+        RemainingTime += ":";
+
+        if (timer.remainingSeconds < 10)
+            RemainingTime += "0" + timer.remainingSeconds.toString();
+        else
+            RemainingTime += timer.remainingSeconds.toString();
+
+        if (timer.remainingSeconds < 0)
+            RemainingTime = "Task Expired";
+
+        return RemainingTime;
+    }
+
+    
+
+    async function updateTimersDisplays() {
+        const TimersPromises = [];
+        for (i = 0; i < IDs.length; i++) {
+            TimersPromises[i] = updateTimers(timers[i]);
+        }
+        var TimersResolves = await Promise.allSettled(TimersPromises);
+        
+        for (i = 0; i < IDs.length; i++) {
+            var IDString = "#timer_" + IDs[i].toString();
+            var TimeString = "";
+            if (TimersResolves[i].status === "fulfilled") {
+                TimeString = TimersResolves[i].value;
+            } else {
+                TimeString = "An error has occured";
+            }
+            $(IDString).html(TimeString);
+        }
+    }
+
+    init();
+    var timer = setInterval(updateTimersDisplays, 1000);
 </script>

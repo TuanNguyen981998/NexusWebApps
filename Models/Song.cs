@@ -32,6 +32,8 @@ namespace CheckListApp.Models
         [Display(Name = "Added Date")]
         public DateTime AddedDate { get; set; }
 
+        public string ImageURL { get; set; }
+
         public ICollection<UsersSongs> UsersSongs { get; set; }
         public ICollection<PlaylistsSongs> PlaylistsSongs { get; set; }
     }
